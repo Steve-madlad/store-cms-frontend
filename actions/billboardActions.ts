@@ -6,8 +6,6 @@ const apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/billboards`;
 
 export async function getBillboards(id: string): Promise<Billboard | null> {
   try {
-    console.log(`${apiUrl}/${id}`);
-
     const res = await fetch(`${apiUrl}/${id}`);
     const data = await res.json();
 

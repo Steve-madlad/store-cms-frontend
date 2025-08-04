@@ -6,16 +6,15 @@ interface BillboardProps {
 }
 
 export default function Billboard({ data }: BillboardProps) {
-  console.log("data", data);
-
   return (
-    <div className="overflow-hidden rounded-xl p-4 sm:p-8">
+    <div className="overflow-hidden rounded-xl py-4 sm:py-8">
       <div className="relative h-75 overflow-hidden rounded-xl shadow-md">
         {data?.imageUrl && (
           <Image
             alt="billboard"
             src={data?.imageUrl}
             fill
+            priority
             className="aspect-square object-cover md:aspect-[2.4/1]"
           />
         )}

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React from "react";
 import MainNav from "./mainNav";
-import { getCategories } from "@/actions/categoriesActions";
+import { getCategories } from "@/actions/categoryActions";
 import NavbarActions from "./navbarActions";
 
 export default async function Navbar() {
