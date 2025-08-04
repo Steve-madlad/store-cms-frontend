@@ -5,7 +5,7 @@ import { getCategories } from "@/actions/categoriesActions";
 import NavbarActions from "./navbarActions";
 
 export default async function Navbar() {
-  const categories = await getCategories();  
+  const categories = await getCategories();
 
   return (
     <div className="border-b">
@@ -17,7 +17,7 @@ export default async function Navbar() {
 
           <MainNav data={categories} />
 
-          <NavbarActions/>
+          <NavbarActions />
         </div>
       </div>
     </div>
