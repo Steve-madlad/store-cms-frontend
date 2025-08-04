@@ -6,6 +6,8 @@ export default async function Home() {
     "16a52cc3-a3f1-4004-b63b-b6fedbf0d19d",
   );
 
+  console.log("billboard", billboards);
+
   return (
     <div className="page">
       <div className="container mx-auto">
