@@ -145,7 +145,7 @@
     @apply flex flex-col;
   }
   .col-center {
-    @apply flex-col items-center justify-center;
+    @apply flex flex-col items-center justify-center;
   }
   .cursor {
     @apply cursor-pointer;

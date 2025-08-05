@@ -1,17 +1,12 @@
 "use server";
 
-import type { Product } from "@/model/types";
+import type { Product, ProductQueryParams } from "@/model/types";
 
 const apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/products`;
 
-interface Query {
-  categoryId?: string;
-  colorId?: string;
-  sizeId?: string;
-  isFeatured?: boolean;
-}
-
-export async function getProducts(query?: Query): Promise<Product[]> {
+export async function getProducts(
+  query?: ProductQueryParams,
+): Promise<Product[]> {
   try {
     const url = new URL(apiUrl);
     const params = new URLSearchParams();
@@ -40,4 +35,22 @@ export async function getProducts(query?: Query): Promise<Product[]> {
   }
 
   return [];
+}
+
+export async function getSingleProduct(id: string): Promise<Product | null> {
+  try {
+    const res = await fetch(`${apiUrl}/${id}`);
+    if (!res.ok && res.status === 500) {
+      throw new Error("Something went wrong, please try again later.");
+    }
+
+    const data = await res.json();
+    console.log("data", data);
+
+    return data?.data;
+  } catch (error) {
+    console.error(error);
+  }
+
+  return null;
 }

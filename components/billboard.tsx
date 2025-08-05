@@ -1,18 +1,16 @@
-import type { Billboard } from "@/model/types";
+import { getBillboard } from "@/actions/billboardActions";
 import Image from "next/image";
 
-interface BillboardProps {
-  data: Billboard | null;
-}
+export default async function Billboard() {
+  const billboard = await getBillboard("16a52cc3-a3f1-4004-b63b-b6fedbf0d19d");
 
-export default function Billboard({ data }: BillboardProps) {
   return (
     <div className="overflow-hidden rounded-xl py-4 sm:py-8">
       <div className="relative h-75 overflow-hidden rounded-xl shadow-md">
-        {data?.imageUrl && (
+        {billboard?.imageUrl && (
           <Image
             alt="billboard"
-            src={data?.imageUrl}
+            src={billboard?.imageUrl}
             fill
             priority
             className="aspect-square object-cover md:aspect-[2.4/1]"
@@ -20,7 +18,7 @@ export default function Billboard({ data }: BillboardProps) {
         )}
 
         <p className="absolute top-1/2 left-1/2 max-w-xs -translate-x-1/2 -translate-y-1/2 text-center text-3xl font-semibold sm:max-w-xl sm:text-4xl lg:text-5xl">
-          {data?.label}
+          {billboard?.label}
         </p>
       </div>
     </div>

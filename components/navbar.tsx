@@ -8,7 +8,7 @@ export default async function Navbar() {
   const categories = await getCategories();
 
   return (
-    <div className="border-b">
+    <div className="shadow-sm">
       <div className="container mx-auto">
         <div className="relative flex h-16 items-center px-4 sm:px-6 lg:px-8">
           <Link href="/">

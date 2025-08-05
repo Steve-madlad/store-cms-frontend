@@ -21,6 +21,13 @@ export interface Product {
   images: Image[];
 }
 
+export interface ProductQueryParams {
+  colorId?: string;
+  sizeId?: string;
+  categoryId?: string;
+  isFeatured?: boolean;
+}
+
 export interface Image {
   id: string;
   url: string;
