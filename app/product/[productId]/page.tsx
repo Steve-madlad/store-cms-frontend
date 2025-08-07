@@ -1,7 +1,7 @@
 function ProductAndGridSkeleton() {
   return (
-    <div>
-      <div className="container mx-auto h-[50vh]">
+    <div className="container mx-auto">
+      <div className="mx-auto h-[50vh]">
         <div className="animate-pulse">
           <div className="mb-4 h-8 w-3/4 rounded-md bg-gray-200"></div>
           <div className="mb-6 h-6 w-1/4 rounded-md bg-gray-200"></div>
@@ -9,7 +9,7 @@ function ProductAndGridSkeleton() {
         </div>
       </div>
 
-      <div className="container mx-auto">
+      <div className="mx-auto">
         <div className="grid grid-cols-1 place-items-center gap-7 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {Array.from({ length: 8 }, (_, index) => (
             <div
@@ -68,7 +68,7 @@ async function ProductContent({ productId }: { productId: string }) {
               <TabsTrigger
                 key={image.id}
                 value={image.id}
-                className="bg-muted cursor group overflow-hiddencursor focus-visible:ring-muted data-[state=active]:ring-primary relative aspect-square h-12.5 !rounded-sm border-0 ring-transparent !outline-0 transition data-[state=active]:ring-1"
+                className="bg-muted cursor group cursor focus-visible:ring-muted data-[state=active]:ring-primary relative aspect-square h-12.5 overflow-hidden !rounded-sm border-0 !p-0 ring-transparent !outline-0 transition data-[state=active]:ring-1"
               >
                 <Image
                   src={image.url}
@@ -128,7 +128,7 @@ export default async function Page({
   const { productId } = await params;
 
   return (
-    <div className="page px-6 pt-5">
+    <div className="page px-6 pt-10">
       <Suspense fallback={<ProductAndGridSkeleton />}>
         <ProductContent productId={productId} />
       </Suspense>

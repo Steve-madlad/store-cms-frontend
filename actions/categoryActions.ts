@@ -16,3 +16,20 @@ export async function getCategories(): Promise<Category[]> {
 
   return [];
 }
+
+export async function getSingleCategory(id: string): Promise<Category | null> {
+  try {
+    const res = await fetch(`${apiUrl}/${id}`);
+    if (!res.ok && res.status === 500) {
+      throw new Error("Something went wrong, please try again later.");
+    }
+
+    const data = await res.json();
+
+    return data?.data;
+  } catch (error) {
+    console.error(error);
+  }
+
+  return null;
+}
