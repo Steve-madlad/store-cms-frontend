@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <div className="page">
       <div className="container mx-auto">
-        <div className="space-y-15 px-6 pt-10">
+        <div className="page-padding space-y-15">
           <Billboard />
           <ProductGrid header="Featured Products 🔥" />
         </div>

@@ -21,8 +21,8 @@ export default async function page({
   const colors = await getColors();
 
   return (
-    <div className="page container mx-auto space-y-15 px-6 pt-10">
-      <Billboard data={category?.billboard} hideLabel />
+    <div className="page page-padding container mx-auto space-y-15">
+      <Billboard data={category?.billboard} />
       <Filters sizes={sizes} colors={colors} values={{ sizeId, colorId }} />
       <ProductGrid categoryId={categoryId} sizeId={sizeId} colorId={colorId} />
     </div>

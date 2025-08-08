@@ -156,4 +156,17 @@
   .page {
     @apply min-h-[calc(100vh-4rem)];
   }
+  .page-padding {
+    @apply px-6 pt-10;
+  }
+}
+
+@keyframes horizontal-bounce {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(5px);
+  }
 }

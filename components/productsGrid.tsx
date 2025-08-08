@@ -17,8 +17,6 @@ export default async function ProductGrid({
   };
   const products = await getProducts(query);
 
-  console.log("query", query);
-
   // const products: Product[] = [
   //   {
   //     id: "7805fee4-21bf-4ac5-b174-51b329413dc",
@@ -394,6 +392,7 @@ export default async function ProductGrid({
           <ProductCard key={product.id} product={product} />
         ))}
       </div>
+
       {!products.length && (
         <div className="text-center text-2xl font-semibold">
           No products found :(

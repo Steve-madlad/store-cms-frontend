@@ -7,9 +7,23 @@ import { Expand, ShoppingCart } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import IconButton from "./IconButton";
+import usePreviewModal from "@/hooks/usePreviewModal";
+import useCart from "@/hooks/useCart";
 
 export function ProductCard({ product }: { product: Product }) {
   const router = useRouter();
+  const { onOpen } = usePreviewModal();
+  const { addItem } = useCart();
+
+  const showPreview = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    onOpen(product);
+  };
+
+  const addToCart = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    addItem(product);
+  };
 
   return (
     <Card
@@ -31,14 +45,14 @@ export function ProductCard({ product }: { product: Product }) {
             <div className="flex gap-x-4 text-gray-600">
               <IconButton
                 className="scale-95 text-inherit hover:scale-115 hover:text-white"
-                onClick={(e) => e.stopPropagation()}
+                onClick={showPreview}
               >
                 <Expand />
               </IconButton>
 
               <IconButton
                 className="scale-95 text-inherit hover:scale-115 hover:text-white"
-                onClick={(e) => e.stopPropagation()}
+                onClick={addToCart}
               >
                 <ShoppingCart />
               </IconButton>
