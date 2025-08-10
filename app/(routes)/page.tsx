@@ -1,6 +1,8 @@
 import Billboard from "@/components/billboard";
 import ProductGrid from "@/components/productsGrid";
 
+export const revalidate = 86400;
+
 export default function Home() {
   return (
     <div className="page">
