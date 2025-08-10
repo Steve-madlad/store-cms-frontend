@@ -29,6 +29,14 @@ export default async function ProductGrid({
         ))}
       </div>
 
+      <pre>
+        <code>{JSON.stringify(products, null, 2)}</code>
+      </pre>
+
+      <pre>
+        <code>{JSON.stringify(query, null, 2)}</code>
+      </pre>
+
       {!products.length && (
         <div className="text-center text-2xl font-semibold">
           No products found :(
