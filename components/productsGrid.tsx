@@ -17,9 +17,6 @@ export default async function ProductGrid({
   };
   const products = await getProducts(query);
 
-  console.log("Products fetched:", products);
-  console.log("query", query);
-
   return (
     <section>
       {header && <h1 className="text-2xl font-semibold">{header}</h1>}
@@ -28,14 +25,6 @@ export default async function ProductGrid({
           <ProductCard key={product.id} product={product} />
         ))}
       </div>
-
-      <pre>
-        <code>{JSON.stringify(products, null, 2)}</code>
-      </pre>
-
-      <pre>
-        <code>{JSON.stringify(query, null, 2)}</code>
-      </pre>
 
       {!products.length && (
         <div className="text-center text-2xl font-semibold">
