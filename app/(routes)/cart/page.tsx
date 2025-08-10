@@ -4,13 +4,13 @@ import { Button } from "@/components/ui/button";
 import useCart from "@/hooks/useCart";
 import { currencyFormat } from "@/lib/utils";
 import axios from "axios";
-import { MoveRight, Trash } from "lucide-react";
+import { Loader2, MoveRight, Trash } from "lucide-react";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
-export default function CartPage() {
+function CartContent() {
   const [checkoutLoading, setCheckoutLoading] = useState(false);
   const { items, removeItem, removeAll } = useCart();
   const searchParams = useSearchParams();
@@ -119,5 +119,19 @@ export default function CartPage() {
         )}
       </div>
     </div>
+  );
+}
+
+export default function CartPage() {
+  return (
+    <Suspense
+      fallback={
+        <div>
+          <Loader2 className="animate-spin" />
+        </div>
+      }
+    >
+      <CartContent />
+    </Suspense>
   );
 }
