@@ -3,11 +3,44 @@
 import { Button } from "@/components/ui/button";
 import useCart from "@/hooks/useCart";
 import { currencyFormat } from "@/lib/utils";
+import axios from "axios";
 import { MoveRight, Trash } from "lucide-react";
 import Image from "next/image";
+import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 export default function CartPage() {
+  const [checkoutLoading, setCheckoutLoading] = useState(false);
   const { items, removeItem, removeAll } = useCart();
+  const searchParams = useSearchParams();
+
+  const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+
+  useEffect(() => {
+    if (searchParams.get("success")) {
+      toast.success("Payment completed.");
+      removeAll();
+    }
+
+    if (searchParams.get("canceled")) {
+      toast.error("Something went wrong.");
+    }
+  }, [searchParams, removeAll]);
+
+  const onCheckout = async () => {
+    setCheckoutLoading(true);
+    try {
+      const response = await axios.post(`${baseUrl}/checkout`, {
+        productIds: items.map((item) => item.id),
+      });
+
+      window.location = response.data.data.url;
+    } catch (error) {
+      toast.error("Something went wrong, please try again later.");
+      setCheckoutLoading(false);
+    }
+  };
 
   return (
     <div className="page">
@@ -69,7 +102,11 @@ export default function CartPage() {
                 </b>
               </div>
 
-              <Button className="group cursor flex gap-4 rounded-full">
+              <Button
+                onClick={onCheckout}
+                disabled={!items.length || checkoutLoading}
+                className="group cursor mt-5 flex gap-4 rounded-full"
+              >
                 Checkout
                 <span className="group-hover:animate-[horizontal-bounce_1s_infinite]">
                   <MoveRight />
