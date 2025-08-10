@@ -9,8 +9,6 @@ export async function getSizes(query?: ProductQueryParams): Promise<Size[]> {
     const res = await fetch(apiUrl);
     const data = await res.json();
 
-    console.log("size data", res);
-
     return data?.data;
   } catch (error) {
     console.error(error);

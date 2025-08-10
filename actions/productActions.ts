@@ -27,8 +27,6 @@ export async function getProducts(
     const res = await fetch(url);
     const data = await res.json();
 
-    console.log("data", data.data);
-
     return data?.data;
   } catch (error) {
     console.error(error);
@@ -45,7 +43,6 @@ export async function getSingleProduct(id: string): Promise<Product | null> {
     }
 
     const data = await res.json();
-    console.log("data", data);
 
     return data?.data;
   } catch (error) {
