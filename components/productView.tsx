@@ -27,14 +27,23 @@ export default function ProductView({
         {product?.images.map((image) => (
           <TabsContent
             key={image.id}
-            className="relative mb-4 aspect-square w-full rounded-md border bg-gray-100 shadow-xs"
+            className="relative mb-4 aspect-square w-full overflow-hidden rounded-md border bg-gray-100 shadow-xs"
             value={image.id}
           >
             <Image
               src={image.url}
+              alt="background blur"
+              fill
+              className="scale-110 object-cover blur-2xl brightness-75"
+              quality={20}
+            />
+
+            <Image
+              src={image.url}
               alt="product"
               fill
-              className="object-contain"
+              className="relative object-contain"
+              priority
             />
           </TabsContent>
         ))}
@@ -51,7 +60,7 @@ export default function ProductView({
                 alt="product"
                 fill
                 quality={20}
-                className="scale-105 object-contain transition-transform group-hover:scale-110"
+                className="scale-105 object-cover transition-transform group-hover:scale-110"
               />
             </TabsTrigger>
           ))}

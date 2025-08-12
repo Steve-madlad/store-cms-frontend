@@ -4,9 +4,9 @@ import { Button } from "@/components/ui/button";
 import useCart from "@/hooks/useCart";
 import { currencyFormat } from "@/lib/utils";
 import axios from "axios";
-import { Loader2, MoveRight, Trash } from "lucide-react";
+import { Loader2, MoveRight, Trash, Trash2 } from "lucide-react";
 import Image from "next/image";
-import { useSearchParams } from "next/navigation";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
@@ -14,16 +14,20 @@ function CartContent() {
   const [checkoutLoading, setCheckoutLoading] = useState(false);
   const { items, removeItem, removeAll } = useCart();
   const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
 
   const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 
   useEffect(() => {
     if (searchParams.get("success")) {
+      router.replace(pathname);
       toast.success("Payment completed.");
       removeAll();
     }
 
     if (searchParams.get("canceled")) {
+      router.replace(pathname);
       toast.error("Something went wrong.");
     }
   }, [searchParams, removeAll]);
@@ -102,16 +106,25 @@ function CartContent() {
                 </b>
               </div>
 
-              <Button
-                onClick={onCheckout}
-                disabled={!items.length || checkoutLoading}
-                className="group cursor mt-5 flex gap-4 rounded-full"
-              >
-                Checkout
-                <span className="group-hover:animate-[horizontal-bounce_1s_infinite]">
-                  <MoveRight />
-                </span>
-              </Button>
+              <div className="col mt-5 gap-3">
+                <Button
+                  onClick={onCheckout}
+                  disabled={!items.length || checkoutLoading}
+                  className="group cursor flex w-full gap-4 rounded-full"
+                >
+                  Checkout
+                  <span className="group-hover:animate-[horizontal-bounce_1s_infinite]">
+                    <MoveRight />
+                  </span>
+                </Button>
+
+                <Button
+                  onClick={removeAll}
+                  className="cursor !ring-destructive !border-destructive bg-destructive hover:text-destructive focus:text-destructive w-full rounded-full border hover:bg-white focus:bg-white focus:!ring-1"
+                >
+                  Empty Cart <Trash2 />
+                </Button>
+              </div>
             </div>
           </div>
         ) : (

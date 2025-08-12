@@ -26,13 +26,13 @@ export default function Filters({
   const onSizeChange = (value: string) => {
     const params = new URLSearchParams(searchParams.toString());
     params.set("sizeId", value);
-    router.push(`?${params.toString()}`);
+    router.push(`?${params.toString()}`, { scroll: false });
   };
 
   const onColorChange = (value: string) => {
     const params = new URLSearchParams(searchParams.toString());
     params.set("colorId", value);
-    router.push(`?${params.toString()}`);
+    router.push(`?${params.toString()}`, { scroll: false });
   };
 
   return (
