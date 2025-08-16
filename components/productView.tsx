@@ -23,11 +23,11 @@ export default function ProductView({
 
   return (
     <div className={className}>
-      <Tabs defaultValue={product?.images[0].id} className="flex-1">
+      <Tabs defaultValue={product?.images[0].id} className="max-w-120 flex-1">
         {product?.images.map((image) => (
           <TabsContent
             key={image.id}
-            className="relative mb-4 aspect-square w-full overflow-hidden rounded-md border bg-gray-100 shadow-xs"
+            className="relative mb-4 aspect-square overflow-hidden rounded-md border bg-gray-100 shadow-xs"
             value={image.id}
           >
             <Image
@@ -67,7 +67,7 @@ export default function ProductView({
         </TabsList>
       </Tabs>
 
-      <div className="flex-1 sm:px-6">
+      <div className="flex-1/12 sm:px-6 lg:flex-1">
         <div className={"space-y-1 border-b pb-2"}>
           <h1 className="text-2xl font-semibold">{product?.name}</h1>
           <p className="text-lg font-semibold">

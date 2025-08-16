@@ -9,16 +9,7 @@ function ProductAndGridSkeleton() {
         </div>
       </div>
 
-      <div className="mx-auto">
-        <div className="grid grid-cols-1 place-items-center gap-7 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-          {Array.from({ length: 8 }, (_, index) => (
-            <div
-              key={index}
-              className="h-full min-h-70 w-full max-w-md animate-pulse rounded-md bg-gray-200"
-            />
-          ))}
-        </div>
-      </div>
+      <ProductGridSkeleton />
     </div>
   );
 }
@@ -26,11 +17,7 @@ function ProductAndGridSkeleton() {
 import { getSingleProduct } from "@/actions/productActions";
 import ProductGrid from "@/components/productsGrid";
 import ProductView from "@/components/productView";
-import { Button } from "@/components/ui/button";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { currencyFormat } from "@/lib/utils";
-import { ShoppingCart } from "lucide-react";
-import Image from "next/image";
+import ProductGridSkeleton from "@/components/skeletons/ProductGridSkeleton";
 import { Suspense } from "react";
 
 async function ProductContent({ productId }: { productId: string }) {
@@ -47,11 +34,9 @@ async function ProductContent({ productId }: { productId: string }) {
 
   return (
     <div className="space-y-10">
-      {/* Product Details */}
-
       <ProductView
         product={product}
-        className="col container mx-auto border-b pb-5 sm:!flex-row"
+        className="col container mx-auto gap-6 border-b pb-5 sm:!flex-row sm:gap-0"
       />
 
       <div className="container mx-auto">

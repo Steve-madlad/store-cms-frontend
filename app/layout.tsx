@@ -5,6 +5,7 @@ import Footer from "@/components/footer";
 import Navbar from "@/components/navbar";
 import PreviewModal from "@/components/previewModal";
 import { Toaster } from "react-hot-toast";
+import ProgressProvider from "@/components/providers/progressProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -36,11 +37,13 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${urbanist.variable} antialiased`}
       >
-        <Navbar />
-        {children}
-        <Footer />
-        <Toaster />
-        <PreviewModal />
+        <ProgressProvider>
+          <Navbar />
+          {children}
+          <Footer />
+          <Toaster />
+          <PreviewModal />
+        </ProgressProvider>
       </body>
     </html>
   );

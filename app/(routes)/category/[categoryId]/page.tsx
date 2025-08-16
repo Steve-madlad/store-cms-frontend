@@ -4,7 +4,6 @@ import { getSizes } from "@/actions/sizeActions";
 import Billboard from "@/components/billboard";
 import Filters from "@/components/Filters";
 import ProductGrid from "@/components/productsGrid";
-import React from "react";
 
 export default async function page({
   params,
@@ -21,10 +20,10 @@ export default async function page({
   const colors = await getColors();
 
   return (
-    <div className="page page-padding container mx-auto space-y-15">
+    <div className="page page-padding container mx-auto space-y-10">
       <Billboard data={category?.billboard} />
       <Filters sizes={sizes} colors={colors} values={{ sizeId, colorId }} />
-      <ProductGrid categoryId={categoryId} sizeId={sizeId} colorId={colorId} />
+      <ProductGrid categoryId={categoryId} />
     </div>
   );
 }

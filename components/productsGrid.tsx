@@ -1,21 +1,57 @@
-import { getProducts } from "@/actions/productActions";
-import { ProductQueryParams } from "@/model/types";
-import { ProductCard } from "./productCard";
+"use client";
 
-export default async function ProductGrid({
-  isFeatured,
-  colorId,
-  sizeId,
+import { getProducts } from "@/actions/productActions";
+import { Product, ProductQueryParams } from "@/model/types";
+import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import { ProductCard } from "./productCard";
+import ProductGridSkeleton from "./skeletons/ProductGridSkeleton";
+
+export default function ProductGrid({
   categoryId,
   header,
 }: ProductQueryParams & { header?: string }) {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [isLoading, setIsLoading] = useState(true); // Add explicit loading state
+
+  const searchParams = useSearchParams();
+  const sizeId = searchParams.get("sizeId") ?? undefined;
+  const colorId = searchParams.get("colorId") ?? undefined;
+
   const query: ProductQueryParams = {
-    isFeatured,
     colorId,
     sizeId,
     categoryId,
   };
-  const products = await getProducts(query);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const fetchProducts = async () => {
+      setIsLoading(true); // Set loading to true when params change
+      const products = await getProducts(query);
+
+      if (isMounted) {
+        setProducts(products);
+        setIsLoading(false); // Set loading to false after fetch completes
+      }
+    };
+
+    fetchProducts().catch(() => {
+      if (isMounted) {
+        setProducts([]);
+        setIsLoading(false);
+      }
+    });
+
+    return () => {
+      isMounted = false;
+    };
+  }, [colorId, sizeId, categoryId]);
+
+  if (isLoading) {
+    return <ProductGridSkeleton />;
+  }
 
   return (
     <section>
