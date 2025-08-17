@@ -1,7 +1,7 @@
 "use client";
 
 import { ProgressProvider as AppProgressProvider } from "@bprogress/next/app";
-import { ReactNode } from "react";
+import { ReactNode, Suspense } from "react";
 
 export default function ProgressProvider({
   children,
@@ -9,8 +9,10 @@ export default function ProgressProvider({
   children: ReactNode;
 }) {
   return (
-    <AppProgressProvider options={{ showSpinner: false }} color="black">
-      {children}
-    </AppProgressProvider>
+    <Suspense>
+      <AppProgressProvider options={{ showSpinner: false }} color="black">
+        {children}
+      </AppProgressProvider>
+    </Suspense>
   );
 }
