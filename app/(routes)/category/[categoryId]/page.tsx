@@ -22,7 +22,7 @@ export default async function page({
   return (
     <div className="page page-padding container mx-auto space-y-10">
       <Billboard data={category?.billboard} />
-      <Filters sizes={sizes} colors={colors} values={{ sizeId, colorId }} />
+      <Filters sizes={sizes} colors={colors} />
       <ProductGrid categoryId={categoryId} />
     </div>
   );
