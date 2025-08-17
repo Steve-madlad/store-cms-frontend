@@ -1,3 +1,5 @@
+"use client";
+
 export default function CartPageSkeleton() {
   return (
     <div className="page">

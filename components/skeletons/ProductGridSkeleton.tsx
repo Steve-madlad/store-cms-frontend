@@ -1,5 +1,3 @@
-import React from "react";
-
 export default function ProductGridSkeleton({
   showBillboard = false,
   showFilters = false,
