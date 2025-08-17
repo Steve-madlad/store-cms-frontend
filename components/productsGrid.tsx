@@ -19,14 +19,14 @@ export default function ProductGrid({
   const sizeId = searchParams.get("sizeId") ?? undefined;
   const colorId = searchParams.get("colorId") ?? undefined;
 
-  const query: ProductQueryParams = {
-    colorId,
-    sizeId,
-    categoryId,
-  };
-
   useEffect(() => {
     let isMounted = true;
+
+    const query: ProductQueryParams = {
+      colorId,
+      sizeId,
+      categoryId,
+    };
 
     const fetchProducts = async () => {
       loading.setLoadingTrue();
@@ -48,7 +48,7 @@ export default function ProductGrid({
     return () => {
       isMounted = false;
     };
-  }, [loading, query, colorId, sizeId, categoryId]);
+  }, [loading, colorId, sizeId, categoryId]);
 
   if (loading.isLoading) {
     return <ProductGridSkeleton />;

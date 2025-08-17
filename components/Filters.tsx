@@ -99,7 +99,7 @@ export default function Filters({
     const pathname = window.location.pathname;
     window.history.pushState({}, "", pathname);
     router.refresh();
-  }, [window.location.pathname, router]);
+  }, [router]);
 
   return (
     <div className="space-y-5">

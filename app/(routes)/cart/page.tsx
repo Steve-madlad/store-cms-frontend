@@ -34,7 +34,7 @@ export default function CartPage() {
       router.replace(pathname);
       toast.error("Something went wrong.");
     }
-  }, [searchParams, pathname, router]);
+  }, [searchParams, removeAll, pathname, router]);
 
   const onCheckout = async () => {
     setCheckoutLoading(true);
@@ -44,7 +44,7 @@ export default function CartPage() {
       });
 
       window.location = response.data.data.url;
-    } catch (error) {
+    } catch {
       toast.error("Something went wrong, please try again later.");
       setCheckoutLoading(false);
     }
