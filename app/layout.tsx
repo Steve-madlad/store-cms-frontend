@@ -37,13 +37,13 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${urbanist.variable} antialiased`}
       >
-        <ProgressProvider>
-          <Navbar />
-          {children}
-          <Footer />
-          <Toaster />
-          <PreviewModal />
-        </ProgressProvider>
+        {/* <ProgressProvider> */}
+        <Navbar />
+        {children}
+        <Footer />
+        <Toaster />
+        <PreviewModal />
+        {/* </ProgressProvider> */}
       </body>
     </html>
   );
