@@ -21,7 +21,7 @@ export default function PreviewModal() {
 
         {data && (
           <ProductView
-            className="col container mx-auto pb-5 sm:!flex-row sm:py-0"
+            className="col container mx-auto gap-5 pb-5 sm:!flex-row sm:py-0 md:gap-0"
             product={data}
           />
         )}
