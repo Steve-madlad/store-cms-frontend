@@ -7,13 +7,10 @@ import ProductGrid from "@/components/productsGrid";
 
 export default async function page({
   params,
-  searchParams,
 }: {
   params: Promise<{ categoryId: string }>;
-  searchParams: Promise<{ sizeId?: string; colorId?: string }>;
 }) {
   const { categoryId } = await params;
-  const { sizeId, colorId } = await searchParams;
 
   const category = await getSingleCategory(categoryId);
   const sizes = await getSizes();

@@ -10,7 +10,7 @@ import axios from "axios";
 import { Loader2, MoveRight, Trash } from "lucide-react";
 import Image from "next/image";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { Suspense, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 export default function CartPage() {
@@ -34,7 +34,7 @@ export default function CartPage() {
       router.replace(pathname);
       toast.error("Something went wrong.");
     }
-  }, [searchParams, removeAll]);
+  }, [searchParams, pathname, router]);
 
   const onCheckout = async () => {
     setCheckoutLoading(true);
