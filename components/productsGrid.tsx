@@ -6,13 +6,14 @@ import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { ProductCard } from "./productCard";
 import ProductGridSkeleton from "./skeletons/ProductGridSkeleton";
+import useLoading from "@/hooks/useLoading";
 
 export default function ProductGrid({
   categoryId,
   header,
 }: ProductQueryParams & { header?: string }) {
   const [products, setProducts] = useState<Product[]>([]);
-  const [isLoading, setIsLoading] = useState(true); // Add explicit loading state
+  const loading = useLoading();
 
   const searchParams = useSearchParams();
   const sizeId = searchParams.get("sizeId") ?? undefined;
@@ -28,19 +29,19 @@ export default function ProductGrid({
     let isMounted = true;
 
     const fetchProducts = async () => {
-      setIsLoading(true); // Set loading to true when params change
+      loading.setLoadingTrue();
       const products = await getProducts(query);
 
       if (isMounted) {
         setProducts(products);
-        setIsLoading(false); // Set loading to false after fetch completes
+        loading.setLoadingFalse();
       }
     };
 
     fetchProducts().catch(() => {
       if (isMounted) {
         setProducts([]);
-        setIsLoading(false);
+        loading.setLoadingFalse();
       }
     });
 
@@ -49,7 +50,7 @@ export default function ProductGrid({
     };
   }, [colorId, sizeId, categoryId]);
 
-  if (isLoading) {
+  if (loading.isLoading) {
     return <ProductGridSkeleton />;
   }
 

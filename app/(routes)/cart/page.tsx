@@ -1,18 +1,22 @@
 "use client";
 
+import CartPageSkeleton from "@/components/skeletons/CartPageSkeleton";
 import { Button } from "@/components/ui/button";
+import { ConfirmationModal } from "@/components/ui/custom/confirmationModal";
 import useCart from "@/hooks/useCart";
+import { useLocal } from "@/hooks/useLocal";
 import { currencyFormat } from "@/lib/utils";
 import axios from "axios";
-import { Loader2, MoveRight, Trash, Trash2 } from "lucide-react";
+import { Loader2, MoveRight, Trash } from "lucide-react";
 import Image from "next/image";
-import { useRouter, usePathname, useSearchParams } from "next/navigation";
-import { Suspense, useEffect, useState } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
-function CartContent() {
+export default function CartPage() {
   const [checkoutLoading, setCheckoutLoading] = useState(false);
   const { items, removeItem, removeAll } = useCart();
+  const local = useLocal();
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
@@ -45,6 +49,10 @@ function CartContent() {
       setCheckoutLoading(false);
     }
   };
+
+  if (!local) {
+    return <CartPageSkeleton />;
+  }
 
   return (
     <div className="page">
@@ -113,17 +121,24 @@ function CartContent() {
                   className="group cursor flex w-full gap-4 rounded-full"
                 >
                   Checkout
-                  <span className="group-hover:animate-[horizontal-bounce_1s_infinite]">
-                    <MoveRight />
-                  </span>
+                  {!checkoutLoading && (
+                    <span className="group-hover:animate-[horizontal-bounce_1s_infinite]">
+                      <MoveRight />
+                    </span>
+                  )}
+                  {checkoutLoading && <Loader2 className="animate-spin" />}
                 </Button>
 
-                <Button
-                  onClick={removeAll}
-                  className="cursor !ring-destructive !border-destructive bg-destructive hover:text-destructive focus:text-destructive w-full rounded-full border hover:bg-white focus:bg-white focus:!ring-1"
-                >
-                  Empty Cart <Trash2 />
-                </Button>
+                <ConfirmationModal
+                  trigger="Clear Cart"
+                  title="Clear Cart?"
+                  description="Are you sure you want to clear your cart?"
+                  handleConfirm={() => {
+                    removeAll();
+                    toast.success("Cart Emptied!");
+                  }}
+                  className="cursor text-primary-foreground !ring-destructive !border-destructive bg-destructive hover:text-destructive focus:text-destructive w-full rounded-full border hover:bg-white focus:bg-white focus:!ring-1"
+                />
               </div>
             </div>
           </div>
@@ -132,19 +147,5 @@ function CartContent() {
         )}
       </div>
     </div>
-  );
-}
-
-export default function CartPage() {
-  return (
-    <Suspense
-      fallback={
-        <div>
-          <Loader2 className="animate-spin" />
-        </div>
-      }
-    >
-      <CartContent />
-    </Suspense>
   );
 }

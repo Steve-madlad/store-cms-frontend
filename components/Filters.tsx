@@ -13,21 +13,23 @@ import {
   SelectTrigger,
   SelectValue,
 } from "./ui/select";
+import useLoading from "@/hooks/useLoading";
 
 export default function Filters({
   sizes,
   colors,
-  values,
 }: {
   sizes: Size[];
   colors: Color[];
-  values: { sizeId?: string; colorId?: string };
 }) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();
+  const loading = useLoading();
 
-  const { sizeId, colorId } = values;
+  const sizeId = searchParams.get("sizeId") ?? undefined;
+  const colorId = searchParams.get("colorId") ?? undefined;
+
   const validSizeId = sizes.some((size) => size.id === sizeId)
     ? sizeId
     : undefined;
@@ -39,7 +41,6 @@ export default function Filters({
     Record<string, string>[]
   >([]);
 
-  // Update applied filters based on searchParams
   useEffect(() => {
     const paramsArray = Array.from(searchParams.entries());
     const paramsObject = Object.fromEntries(paramsArray);
@@ -133,7 +134,11 @@ export default function Filters({
       )}
 
       <div className="flex flex-col gap-4 sm:!flex-row sm:items-start">
-        <Select value={validSizeId} onValueChange={onSizeChange}>
+        <Select
+          value={validSizeId || ""}
+          onValueChange={onSizeChange}
+          disabled={loading.isLoading}
+        >
           <SelectTrigger className="w-full sm:w-[180px]">
             <SelectValue placeholder="Sizes" />
           </SelectTrigger>
@@ -146,7 +151,11 @@ export default function Filters({
           </SelectContent>
         </Select>
 
-        <Select value={validColorId} onValueChange={onColorChange}>
+        <Select
+          value={validColorId || ""}
+          onValueChange={onColorChange}
+          disabled={loading.isLoading}
+        >
           <SelectTrigger className="w-full sm:w-[180px]">
             <SelectValue placeholder="Color" />
           </SelectTrigger>
@@ -160,7 +169,11 @@ export default function Filters({
         </Select>
 
         {appliedFilters.length > 0 && (
-          <Button variant="outline" onClick={clearParams}>
+          <Button
+            disabled={loading.isLoading}
+            variant="outline"
+            onClick={clearParams}
+          >
             <Trash2 /> Clear All
           </Button>
         )}
