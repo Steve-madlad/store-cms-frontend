@@ -41,7 +41,7 @@ export function ProductCard({ product }: { product: Product }) {
             className="object-cover duration-300 group-hover:scale-110"
           />
 
-          <div className="absolute bottom-5 left-1/2 z-10 -translate-x-1/2 opacity-0 duration-300 group-hover:opacity-100">
+          <div className="absolute bottom-5 left-1/2 z-10 -translate-x-1/2 duration-300 md:opacity-0 md:group-hover:opacity-100">
             <div className="flex gap-x-4 text-gray-600">
               <IconButton
                 className="scale-95 text-inherit hover:scale-115 hover:text-white"
