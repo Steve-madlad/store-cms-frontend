@@ -6,6 +6,8 @@ export default async function Billboard({ data }: { data?: Billboard }) {
   const billboard =
     data ?? (await getBillboard("16a52cc3-a3f1-4004-b63b-b6fedbf0d19d"));
 
+  console.info({ billboard });
+
   return (
     <div className="overflow-hidden rounded-xl">
       <div className="relative h-75 overflow-hidden rounded-xl shadow-md">

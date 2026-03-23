@@ -48,7 +48,7 @@ export default function ProductGrid({
     return () => {
       isMounted = false;
     };
-  }, [colorId, sizeId, categoryId]);
+  }, [colorId, sizeId, categoryId, loading]);
 
   if (loading.isLoading) {
     return <ProductGridSkeleton />;
